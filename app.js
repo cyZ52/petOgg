@@ -30,6 +30,12 @@ app.use(session({
   }
 }))
 
+// 允许跨域访问，设置允许的域名
+app.use(cors({
+  origin: 'http://localhost:3000', // 前端服务器地址
+  credentials: true // 允许携带跨域 Cookie
+}));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -40,7 +46,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(cors());
 
 app.use('/auth', authRouter);
 

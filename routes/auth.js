@@ -14,7 +14,7 @@ router.post('/login', function (req, res, next) {
       req.session.username = data[0].username;
       req.session._id = data[0]._id;
 
-      console.log(req.session.username)
+      console.log('session信息:',req.session.username)
       if (username == 'amdin') {
         res.json({
           code: '0000',
@@ -68,6 +68,7 @@ router.post('/register', function (req, res, next) {
 
 // *
 router.get('/checkLogin', function (req, res, next) {
+  console.log(req.session.username);
   if(!req.session.username) {
     res.json({
       msg: 'offLogin'
