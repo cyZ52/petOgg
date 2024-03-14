@@ -5,6 +5,7 @@ const UserModel = require('../models/user');
 
 const md5 = require('md5');
 
+// 登录接口
 router.post('/login', function (req, res, next) {
   const { username, password } = req.body;
 
@@ -14,14 +15,16 @@ router.post('/login', function (req, res, next) {
       req.session.username = data[0].username;
       req.session._id = data[0]._id;
 
-      console.log('session信息:',req.session.username)
+      // console.log('session信息:',req.session)
+      console.log('login:',req.session.username)
       if (username == 'amdin') {
         res.json({
           code: '0000',
           msg: '欢迎管理员登录!',
-          data: null
+          data: req.body
         })
       } else {
+        console.log('111111111111',req.body)
         res.json({
           code: '0001',
           msg: `欢迎用户${username}!`,
@@ -38,6 +41,7 @@ router.post('/login', function (req, res, next) {
   })
 })
 
+// 注册接口
 router.post('/register', function (req, res, next) {
   const { username, password } = req.body;
 
@@ -66,10 +70,10 @@ router.post('/register', function (req, res, next) {
   })
 })
 
-// *
+// 登录验证接口   *
 router.get('/checkLogin', function (req, res, next) {
-  console.log(req.session.username);
-  if(!req.session.username) {
+  console.log('checkLogin:',req.session.username);
+  if(!req.session) {
     res.json({
       msg: 'offLogin'
     })
@@ -80,7 +84,7 @@ router.get('/checkLogin', function (req, res, next) {
   }
 })
 
-// *
+// 退出登录接口    *
 router.get('/logout', function (req, res, next) {
   req.session.destroy(() => {
     res.json({
@@ -88,6 +92,11 @@ router.get('/logout', function (req, res, next) {
     })
   })
   console.log('1')
+})
+
+// 获取当前用户信息接口
+router.get('/getUserInfo', function (req, res, next) {
+
 })
 
 module.exports = router;

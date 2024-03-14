@@ -33,8 +33,20 @@ app.use(session({
 // 允许跨域访问，设置允许的域名
 app.use(cors({
   origin: 'http://localhost:3000', // 前端服务器地址
-  credentials: true // 允许携带跨域 Cookie
+  credentials: true, // 允许携带跨域 Cookie
 }));
+
+// app.all('*', function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+//   res.header("Access-Control-Allow-Headers", "X-Requested-With, Content-Type");
+//   res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+//   res.header("X-Powered-By",' 3.2.1');
+//   res.header("Access-Control-Allow-Credentials",true);
+//   res.header("Content-Type", "application/json;charset=utf-8");
+//   next();
+//   });
+
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
