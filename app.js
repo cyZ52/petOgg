@@ -10,6 +10,7 @@ const MongoStore = require('connect-mongo');
 const cors = require('cors');
 
 var authRouter = require('./routes/auth');
+var notifyRouter = require('./routes/notify');
 
 var app = express();
 
@@ -58,8 +59,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
+// 接口路由
 app.use('/auth', authRouter);
+app.use('/notify', notifyRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
