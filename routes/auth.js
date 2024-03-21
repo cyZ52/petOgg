@@ -16,7 +16,7 @@ router.post('/login', function (req, res, next) {
       req.session._id = data[0]._id;
 
       // console.log('session信息:',req.session)
-      console.log('login:',req.session.username)
+      console.log('login:', req.session.username)
       if (username == 'amdin') {
         res.json({
           code: '0000',
@@ -24,7 +24,7 @@ router.post('/login', function (req, res, next) {
           data: req.body
         })
       } else {
-        console.log('111111111111',req.body)
+        console.log('111111111111', req.body)
         res.json({
           code: '0001',
           msg: `欢迎用户${username}!`,
@@ -72,8 +72,8 @@ router.post('/register', function (req, res, next) {
 
 // 登录验证接口   *
 router.get('/checkLogin', function (req, res, next) {
-  console.log('checkLogin:',req.session.username);
-  if(!req.session) {
+  console.log('checkLogin:', req.session.username);
+  if (!req.session) {
     res.json({
       msg: 'offLogin'
     })
@@ -95,7 +95,23 @@ router.get('/logout', function (req, res, next) {
 })
 
 // 获取当前用户信息接口
-router.get('/getUserInfo', function (req, res, next) {
+router.post('/getUserInfo', function (req, res, next) {
+  UserModel.findOne({ username: req.body.username }).then(data => {
+    res.json({
+      msg: '获取用户信息成功',
+      data: data
+    })
+  })
+})
+
+// 修改用户信息接口
+router.post('/changeUserInfo', function (req, res, next) {
+  console.log('需要修改的信息：', req.body);
+  UserModel.updateOne({ username: req.body.username }, { $set: { ...req.body } }).then(() => {
+    res.json({
+      msg: '修改成功'
+    })
+  })
 
 })
 
