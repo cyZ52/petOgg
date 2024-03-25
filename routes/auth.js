@@ -17,14 +17,14 @@ router.post('/login', function (req, res, next) {
 
       // console.log('session信息:',req.session)
       console.log('login:', req.session.username)
-      if (username == 'amdin') {
+      if (req.session.username == 'amdin') {
         res.json({
           code: '0000',
           msg: '欢迎管理员登录!',
           data: req.body
         })
       } else {
-        console.log('111111111111', req.body)
+        console.log('登录成功:', req.body)
         res.json({
           code: '0001',
           msg: `欢迎用户${username}!`,
@@ -70,10 +70,12 @@ router.post('/register', function (req, res, next) {
   })
 })
 
+
 // 登录验证接口   *
-router.get('/checkLogin', function (req, res, next) {
-  console.log('checkLogin:', req.session.username);
-  if (!req.session) {
+router.post('/checkLogin', function (req, res, next) {
+  console.log('登录验证：',req.body.userInfo);
+  if (!req.body.userInfo) {
+    console.log('未登录用户访问');
     res.json({
       msg: 'offLogin'
     })
@@ -84,14 +86,14 @@ router.get('/checkLogin', function (req, res, next) {
   }
 })
 
-// 退出登录接口    *
+// 退出登录接口
 router.get('/logout', function (req, res, next) {
   req.session.destroy(() => {
     res.json({
       msg: '退出登录'
     })
   })
-  console.log('1')
+  console.log('退出登录');
 })
 
 // 获取当前用户信息接口
@@ -112,7 +114,6 @@ router.post('/changeUserInfo', function (req, res, next) {
       msg: '修改成功'
     })
   })
-
 })
 
 module.exports = router;
