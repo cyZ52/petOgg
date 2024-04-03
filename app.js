@@ -13,6 +13,8 @@ var authRouter = require('./routes/auth');
 var notifyRouter = require('./routes/notify');
 var accountRouter = require('./routes/acccount');
 var fosterRouter = require('./routes/foster');
+var productRouter = require('./routes/product');
+var orderRouter = require('./routes/order');
 
 var app = express();
 
@@ -66,6 +68,8 @@ app.use('/auth', authRouter);
 app.use('/notify', notifyRouter);
 app.use('/account', accountRouter);
 app.use('/foster', fosterRouter);
+app.use('/product', productRouter);
+app.use('/order', orderRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
