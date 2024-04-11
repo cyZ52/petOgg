@@ -5,6 +5,7 @@ const ProductModel = require('../models/product');
 
 // 新建产品
 router.post('/setProduct', function (req, res, next) {
+    console.log(req.body)
     ProductModel.create({ ...req.body }).then(() => {
         res.json({
             msg: '新建商品成功!'
